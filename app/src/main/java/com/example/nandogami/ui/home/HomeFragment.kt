@@ -60,7 +60,6 @@ class HomeFragment : Fragment() {
                 adapter?.notifyDataSetChanged()
             }
             .addOnFailureListener {
-                // TODO: tampilkan pesan error jika ingin
             }
     }
 
