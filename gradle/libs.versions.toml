@@ -15,8 +15,15 @@ junit = "4.13.2"
 androidx_junit = "1.2.1"
 espresso_core = "3.6.1"
 google_services = "4.4.2"
+firestoreVersion = "25.1.4"
+glide = "4.16.0"
+androidxCardview = "1.0.0"
+androidxRecyclerview = "1.4.0"
 
 [libraries]
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+androidx-cardview = { group = "androidx.cardview", name = "cardview", version.ref = "androidxCardview" }
+androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "androidxRecyclerview" }
 firebase_auth = { module = "com.google.firebase:firebase-auth-ktx", version = "23.2.1" }
 androidx_core_ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core_ktx" }
 androidx_appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
@@ -31,6 +38,7 @@ firebase_analytics = { module = "com.google.firebase:firebase-analytics", versio
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx_junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx_junit" }
 androidx_espresso_core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso_core" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firestoreVersion" }
 
 [plugins]
 android_application = { id = "com.android.application", version.ref = "agp" }
