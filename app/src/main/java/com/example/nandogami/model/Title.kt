@@ -6,9 +6,9 @@ data class Title(
     val author: String = "",
     val imageUrl: String = "",
     val type: String = "",
-    val categories: List<String> = emptyList(),
-    val rating: Double = 0.0,
+    val rating: Float = 0f,
     val isFeatured: Boolean = false,
+    val isPopular: Boolean = false,
     val isNewRelease: Boolean = false,
-    val isPopular: Boolean = false
+    val categories: List<String> = emptyList()
 )
