@@ -2,6 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="160dp"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="12dp"
     android:layout_margin="8dp"
     android:elevation="4dp"
     android:radius="8dp">
@@ -11,25 +13,32 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- TYPE BADGE -->
-        <TextView
-            android:id="@+id/tvTypeBadge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_badge"
-            android:padding="4dp"
-            android:text="Manga"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            android:layout_margin="8dp"/>
-
-        <!-- COVER IMAGE -->
-        <ImageView
-            android:id="@+id/imgCover"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:scaleType="centerCrop"
-            android:contentDescription="cover" />
+            android:layout_height="180dp">
+
+            <!-- COVER IMAGE (mentok atas) -->
+            <ImageView
+                android:id="@+id/imgCover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:contentDescription="cover" />
+
+            <!-- TYPE BADGE (ditempatkan di atas cover) -->
+            <TextView
+                android:id="@+id/tvTypeBadge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_badge"
+                android:padding="4dp"
+                android:text="Manga"
+                android:textColor="#FFFFFF"
+                android:textSize="12sp"
+                android:layout_margin="8dp"
+                android:layout_gravity="top|start"/>
+
+        </FrameLayout>
 
         <!-- TITLE & AUTHOR -->
         <TextView

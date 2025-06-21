@@ -13,6 +13,6 @@
         android:label="Dashboard" />
     <fragment
         android:id="@+id/notificationsFragment"
-        android:name="com.example.nandogami.ui.notifications.NotificationsFragment"
+        android:name="com.example.nandogami.ui.profile.ProfileFragment"
         android:label="Notifications" />
 </navigation>
