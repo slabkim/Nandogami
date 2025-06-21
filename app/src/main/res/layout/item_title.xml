@@ -1,94 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="160dp"
-    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="12dp"
-    android:layout_margin="8dp"
-    android:elevation="4dp"
-    android:radius="8dp">
+    android:layout_width="160dp"
+    android:layout_height="250dp" android:layout_margin="8dp"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgCover"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="cover" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/gradient_overlay_bottom" />
+
+        <TextView
+        android:id="@+id/tvTypeBadge"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="8dp"
+        android:background="@drawable/bg_badge"
+        android:paddingStart="8dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="4dp"
+        android:text="Manga"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="180dp">
-
-            <!-- COVER IMAGE (mentok atas) -->
-            <ImageView
-                android:id="@+id/imgCover"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:contentDescription="cover" />
-
-            <!-- TYPE BADGE (ditempatkan di atas cover) -->
-            <TextView
-                android:id="@+id/tvTypeBadge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_badge"
-                android:padding="4dp"
-                android:text="Manga"
-                android:textColor="#FFFFFF"
-                android:textSize="12sp"
-                android:layout_margin="8dp"
-                android:layout_gravity="top|start"/>
-
-        </FrameLayout>
-
-        <!-- TITLE & AUTHOR -->
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="14sp"
-            android:paddingTop="8dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:text="Judul"/>
-
-        <TextView
-            android:id="@+id/tvAuthor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textColor="#888"
-            android:text="Penulis"/>
-
-        <!-- RATING BAR & NUMBER -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="8dp"
-            android:gravity="center_vertical">
-
-            <RatingBar
-                android:id="@+id/ratingBar"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:numStars="5"
-                android:stepSize="0.5"
-                android:isIndicator="true"/>
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"> <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="One Piece"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvRatingValue"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvAuthor"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
-                android:paddingStart="4dp"
-                android:text="4.8"/>
-        </LinearLayout>
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:text="Eiichiro Oda"
+                android:textColor="#CCCCCC"
+                android:textSize="12sp" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
+
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:isIndicator="true"
+                    android:numStars="5"
+                    android:progressTint="@android:color/white"
+                    android:rating="4.8"
+                    android:stepSize="0.1" />
+
+                <TextView
+                    android:id="@+id/tvRatingValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:text="4.8"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
 </androidx.cardview.widget.CardView>

@@ -2,11 +2,12 @@
 <androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
-
+    android:fillViewport="true"
+    tools:context=".ui.home.HomeFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +15,6 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
 
-        <!-- Toolbar sederhana (pakai LinearLayout horizontal supaya sejajar) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,7 +40,6 @@
                 android:padding="16dp"/>
         </LinearLayout>
 
-        <!-- Featured -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,9 +54,10 @@
             android:overScrollMode="never"
             android:clipToPadding="false"
             android:paddingStart="4dp"
-            android:paddingEnd="4dp"/>
-
-        <!-- Categories -->
+            android:paddingEnd="4dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_featured"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,9 +72,11 @@
             android:overScrollMode="never"
             android:clipToPadding="false"
             android:paddingStart="4dp"
-            android:paddingEnd="4dp"/>
+            android:paddingEnd="4dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_category"/>
 
-        <!-- Popular -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,9 +91,11 @@
             android:overScrollMode="never"
             android:clipToPadding="false"
             android:paddingStart="4dp"
-            android:paddingEnd="4dp"/>
+            android:paddingEnd="4dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_title"/>
 
-        <!-- New Releases -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -107,7 +111,10 @@
             android:clipToPadding="false"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_title"/>
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
