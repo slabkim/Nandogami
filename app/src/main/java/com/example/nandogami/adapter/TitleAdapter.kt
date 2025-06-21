@@ -37,7 +37,7 @@ class TitleAdapter(
         holder.tvTitle.text       = title.title
         holder.tvAuthor.text      = title.author
         holder.tvTypeBadge.text   = title.type
-        holder.ratingBar.rating   = title.rating
+        holder.ratingBar.rating = title.rating.toFloat()
         holder.tvRatingValue.text = String.format("%.1f", title.rating)
 
         Glide.with(holder.imgCover.context)

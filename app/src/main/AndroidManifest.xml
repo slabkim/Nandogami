@@ -37,6 +37,12 @@
             android:exported="true"
             android:label="@string/app_name" />
 
+        <activity
+            android:name=".ui.detail.DetailActivity"
+            android:exported="false"
+            android:label="Title Detail"
+            android:theme="@style/Theme.Nandogami"/>
+
         <!-- (Tambahkan activity lain jika ada) -->
 
     </application>
