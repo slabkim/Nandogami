@@ -57,50 +57,49 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         FirebaseFirestore.getInstance()
             .collection("titles")
             .get()
-            .addOnSuccessListener { snap ->
+            .addOnSuccessListener { documents ->
+                Log.d("FirestoreDebug", "Berhasil mengambil ${documents.size()} dokumen.")
+
+                val mappedTitles = documents.mapNotNull { doc ->
+                    try {
+                        doc.toObject(Title::class.java)
+                    } catch (e: Exception) {
+                        Log.e("FirestoreDebug", "Gagal memetakan dokumen: ${doc.id}", e)
+                        null
+                    }
+                }
+
                 allTitles.clear()
-                // Map dokumen Firestore ke objek Title
-                allTitles.addAll(snap.mapNotNull { it.toObject(Title::class.java) })
+                allTitles.addAll(mappedTitles)
 
-                // Inisialisasi dan set adapter untuk rvFeatured
-                binding.rvFeatured.adapter =
-                    FeaturedAdapter(allTitles.filter { it.isFeatured }) { title ->
-                        // Handle klik item Featured
-                        navigateToDetail(title)
-                    }
+                // =================== MODIFIKASI DIMULAI DI SINI ===================
 
-                // Inisialisasi dan set adapter untuk rvPopular (menampilkan semua manga)
-                binding.rvPopular.adapter =
-                    TitleAdapter(allTitles) { title ->
-                        // Handle klik item Popular
-                        navigateToDetail(title)
-                    }
-                Log.d("HomeFragment", "Titles fetched: $allTitles")
-                // Inisialisasi dan set adapter untuk rvNewRelease
-                binding.rvNewRelease.adapter =
-                    TitleAdapter(allTitles.filter { it.isNewRelease }) { title ->
-                        // Handle klik item New Release
-                        navigateToDetail(title)
-                    }
+                // 2. Filter data, ACAK, lalu kirim ke adapter
+                val featuredList = allTitles.filter { it.isFeatured }.shuffled() // Diacak
+                val newReleaseList = allTitles.filter { it.isNewRelease }.shuffled() // Diacak
+                val popularList = allTitles.shuffled() // Semua item juga diacak untuk "Popular"
 
-                // Inisialisasi dan set adapter untuk rvCategories
                 val categories = allTitles.flatMap { it.categories }.distinct()
+
+                Log.d("FirestoreDebug", "Setelah filter: ${featuredList.size} featured, ${newReleaseList.size} new releases.")
+
+                binding.rvFeatured.adapter = FeaturedAdapter(featuredList) { navigateToDetail(it) }
+                binding.rvNewRelease.adapter = TitleAdapter(newReleaseList) { navigateToDetail(it) }
+                // Gunakan daftar yang sudah diacak untuk "Popular"
+                binding.rvPopular.adapter = TitleAdapter(popularList) { navigateToDetail(it) }
+
+                // =================== MODIFIKASI SELESAI ===================
+
                 binding.rvCategories.adapter =
                     CategoryAdapter(categories) { category ->
-                        // Filter rvPopular berdasarkan kategori yang dipilih
                         val filteredTitles = allTitles.filter { it.categories.contains(category) }
                         binding.rvPopular.adapter = TitleAdapter(filteredTitles) { title ->
-                            // Handle klik item Popular setelah filter
                             navigateToDetail(title)
                         }
                     }
             }
             .addOnFailureListener { e ->
-                // TODO: Handle error, misalnya log error atau tampilkan Toast
-                // Log.e("HomeFragment", "Error fetching titles: ${e.message}", e)
-                Log.e("HomeFragment", "Error fetching titles: ${e.message}")
-                // Toast.makeText(requireContext(), "Failed to load data: ${e.message}", Toast.LENGTH_SHORT).show()
-                e.printStackTrace()
+                Log.e("FirestoreDebug", "Error saat mengambil data", e)
             }
     }
 
