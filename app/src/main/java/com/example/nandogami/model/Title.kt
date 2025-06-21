@@ -13,6 +13,7 @@ data class Adaptation(
     @get:PropertyName("type") @set:PropertyName("type")
     var type: String = "",
 
+    // TIPE DATA HARUS LONG agar cocok dengan angka di database
     @get:PropertyName("year") @set:PropertyName("year")
     var year: Long = 0
 )
@@ -63,9 +64,8 @@ data class Title(
     @get:PropertyName("type") @set:PropertyName("type")
     var type: String = "",
 
-    // Menggunakan @PropertyName untuk field dengan nama yang tidak standar
-// Menggunakan nama field standar "alternativeTitle"
-    @get:PropertyName("alternativesTitles") @set:PropertyName("alternativesTitles")
+    // Menggunakan nama variabel yang Anda minta
+    @get:PropertyName("alternative titles") @set:PropertyName("alternative titles")
     var alternativesTitles: List<String> = emptyList(),
 
     @get:PropertyName("adaptations") @set:PropertyName("adaptations")

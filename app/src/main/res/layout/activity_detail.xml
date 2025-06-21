@@ -58,7 +58,8 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Judul, Author, dan Badge Tipe -->
+            <!-- ... (Semua konten dari Judul hingga Adaptations tetap sama) ... -->
+
             <TextView
                 android:id="@+id/tvDetailTitle"
                 android:layout_width="wrap_content"
@@ -86,7 +87,6 @@
                 android:textColor="@android:color/white"
                 tools:text="Manga"/>
 
-            <!-- Rating -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,14 +106,12 @@
                     tools:text="4.5 (178,456 ratings)" />
             </LinearLayout>
 
-            <!-- Categories/Genres -->
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroupCategories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
 
-            <!-- Synopsis -->
             <TextView
                 style="@style/TextAppearance.Material3.TitleMedium"
                 android:layout_width="wrap_content"
@@ -128,7 +126,6 @@
                 android:lineSpacingExtra="4dp"
                 tools:text="Denji is a young man trapped in poverty, working off his deceased father's debt..." />
 
-            <!-- Alternative Titles -->
             <TextView
                 android:id="@+id/headerAlternativeTitles"
                 style="@style/TextAppearance.Material3.TitleMedium"
@@ -143,7 +140,6 @@
                 android:layout_marginTop="8dp"
                 tools:text="チェンソーマン\nChenso Man" />
 
-            <!-- Information Section -->
             <TextView
                 style="@style/TextAppearance.Material3.TitleMedium"
                 android:layout_width="wrap_content"
@@ -156,21 +152,16 @@
                 android:layout_marginTop="8dp"
                 android:columnCount="2"
                 android:useDefaultMargins="true">
-                <!-- Type -->
                 <TextView android:text="Type" android:textStyle="bold"/>
                 <TextView android:id="@+id/tvInfoType" tools:text="Manga"/>
-                <!-- Format -->
                 <TextView android:text="Format" android:textStyle="bold"/>
                 <TextView android:id="@+id/tvInfoFormat" tools:text="Weekly Serialization"/>
-                <!-- Release Year -->
                 <TextView android:text="Release Year" android:textStyle="bold"/>
                 <TextView android:id="@+id/tvInfoReleaseYear" tools:text="2018"/>
-                <!-- Chapters -->
                 <TextView android:text="Chapters" android:textStyle="bold"/>
                 <TextView android:id="@+id/tvInfoChapters" tools:text="130"/>
             </GridLayout>
 
-            <!-- Themes -->
             <TextView
                 style="@style/TextAppearance.Material3.TitleMedium"
                 android:layout_width="wrap_content"
@@ -183,7 +174,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"/>
 
-            <!-- Adaptations -->
             <TextView
                 style="@style/TextAppearance.Material3.TitleMedium"
                 android:layout_width="wrap_content"
@@ -196,6 +186,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:orientation="vertical"/>
+
+            <!-- =================== SECTION BARU DITAMBAHKAN DI SINI =================== -->
+            <TextView
+                android:id="@+id/headerDiscover"
+                style="@style/TextAppearance.Material3.TitleMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="Discover" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvDiscover"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_title" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
