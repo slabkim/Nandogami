@@ -33,8 +33,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         // Fetch data dari Firestore
         fetchTitlesFromFirestore()
 
-        // Setup Logout Button
-        setupLogoutButton()
     }
 
     private fun setupRecyclerViewLayoutManagers() {
@@ -115,15 +113,6 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             putExtra("titleId", title.id)
         }
         startActivity(intent)
-    }
-
-    private fun setupLogoutButton() {
-        binding.btnLogout.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            startActivity(Intent(requireContext(), AuthActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            })
-        }
     }
 
     override fun onDestroyView() {

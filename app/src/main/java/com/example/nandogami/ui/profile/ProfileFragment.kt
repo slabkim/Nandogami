@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.nandogami.AuthActivity
 import com.example.nandogami.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -56,7 +57,7 @@ class ProfileFragment : Fragment() {
         }
 
         loadUserProfile()
-
+        setupLogoutButton2()
         return root
     }
 
@@ -89,5 +90,14 @@ class ProfileFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setupLogoutButton2() {
+        binding.btnLogout2.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            startActivity(Intent(requireContext(), AuthActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            })
+        }
     }
 }
