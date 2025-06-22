@@ -101,7 +101,7 @@ Aplikasi Rekomendasi Komik & Manga Paling Keren untuk Android
 | Ananda Anhar Subing           | [@anndaanhr](https://github.com/anndaanhr) |
 | Sulthon Abdul Hakim           | [@slabkim](https://github.com/slabkim)     |
 | Muhammad Nur Faadil           | [@bugsm](https://github.com/bugsm)         |
-| Wiranti Oktaviani Tanwin      | -                        |
+| Wiranti Oktaviani Tanwin      | [@kanooooyon](https://github.com/Kanooooyon)|
 | Kgs. Muhammad Fathurrahman    | [@Thorrr29](https://github.com/thorrr29)   |
 | Faiz Ahmad Nadhif             | -                        |
 
