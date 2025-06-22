@@ -1,11 +1,13 @@
 package com.example.nandogami.ui.dashboard
 
-import android.content.Intent // <-- TAMBAHKAN IMPORT INI
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log // <-- TAMBAHKAN IMPORT INI
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +17,7 @@ import com.example.nandogami.adapter.RecentSearchAdapter
 import com.example.nandogami.adapter.TitleAdapter
 import com.example.nandogami.databinding.FragmentDashboardBinding
 import com.example.nandogami.model.Title
-import com.example.nandogami.ui.detail.DetailActivity // <-- TAMBAHKAN IMPORT INI
+import com.example.nandogami.ui.detail.DetailActivity
 import com.google.android.material.chip.Chip
 
 class DashboardFragment : Fragment() {
@@ -34,6 +36,8 @@ class DashboardFragment : Fragment() {
     ): View {
         dashboardViewModel = ViewModelProvider(this).get(DashboardViewModel::class.java)
         _binding = FragmentDashboardBinding.inflate(inflater, container, false)
+        // Pindahkan inisialisasi visibilitas ke sini, setelah binding diinisialisasi
+        binding.filtersGroup.visibility = View.GONE
         return binding.root
     }
 
@@ -46,7 +50,6 @@ class DashboardFragment : Fragment() {
         observeViewModel()
     }
 
-    // FUNGSI BARU UNTUK NAVIGASI
     private fun navigateToDetail(title: Title) {
         if (title.id.isBlank()) {
             Log.e("DashboardFragment", "Gagal navigasi: Title ID kosong untuk judul '${title.title}'")
@@ -59,22 +62,37 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setupSearchBox() {
-        binding.searchEditText.setOnEditorActionListener { textView, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                val query = textView.text.toString()
-                if (query.isNotEmpty()) {
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val query = s.toString().trim()
+
+                val isSearching = query.isNotEmpty()
+
+                // Sembunyikan popular/recent saat search aktif
+                binding.popularSearchesChipGroup.visibility = if (isSearching) View.GONE else View.VISIBLE
+                binding.recentSearchesRecyclerView.visibility = if (isSearching) View.GONE else View.VISIBLE
+                binding.tvClearAll.visibility = if (isSearching) View.GONE else View.VISIBLE
+                binding.tvRecentSearches.visibility = if (isSearching) View.GONE else View.VISIBLE
+                binding.tvPopularSearches.visibility = if (isSearching) View.GONE else View.VISIBLE
+                binding.filtersGroup.visibility = if (isSearching) View.GONE else View.VISIBLE
+
+                if (isSearching) {
                     dashboardViewModel.search(query)
+                } else {
+                    dashboardViewModel.clearSearchResults()
                 }
-                return@setOnEditorActionListener true
             }
-            false
-        }
+
+        })
     }
 
     private fun setupSearchResults() {
-        // MODIFIKASI BAGIAN INI
         searchResultsAdapter = TitleAdapter(emptyList()) { title ->
-            navigateToDetail(title) // Panggil fungsi navigasi saat item diklik
+            navigateToDetail(title)
         }
         binding.searchResultsRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)
@@ -98,17 +116,25 @@ class DashboardFragment : Fragment() {
 
     private fun observeViewModel() {
         dashboardViewModel.searchResults.observe(viewLifecycleOwner) { titles ->
-            // Perbarui adapter dengan data baru dan fungsi klik yang sudah diatur
-            (binding.searchResultsRecyclerView.adapter as TitleAdapter).apply {
-                // Anda perlu membuat metode untuk memperbarui data di adapter
-                // atau cukup buat instance adapter baru seperti ini
-                binding.searchResultsRecyclerView.adapter = TitleAdapter(titles ?: emptyList()) { title ->
-                    navigateToDetail(title)
-                }
-            }
+            val hasResults = !titles.isNullOrEmpty()
 
-            val count = titles?.size ?: 0
-            binding.tvTitlesCount.text = "$count titles"
+            // Update data adapter
+            searchResultsAdapter.updateData(titles ?: emptyList())
+
+            // Tampilkan hasil dan jumlah
+            binding.tvTitlesCount.text = "${titles?.size ?: 0} titles"
+            binding.tvTitlesCount.visibility = if (hasResults) View.VISIBLE else View.GONE
+            binding.searchResultsRecyclerView.visibility = if (hasResults) View.VISIBLE else View.GONE
+
+            // Atur visibilitas UI tambahan
+            val showExtraUI = !hasResults && binding.searchEditText.text.isNullOrEmpty()
+            binding.popularSearchesChipGroup.visibility = if (showExtraUI) View.VISIBLE else View.GONE
+            binding.recentSearchesRecyclerView.visibility = if (showExtraUI) View.VISIBLE else View.GONE
+            binding.tvClearAll.visibility = if (showExtraUI) View.VISIBLE else View.GONE
+
+            // Tambahkan ini jika kamu bungkus filter dalam satu grup layout
+            binding.filtersGroup.visibility = if (showExtraUI) View.VISIBLE else View.GONE
+
         }
 
         dashboardViewModel.recentSearches.observe(viewLifecycleOwner) { searches ->

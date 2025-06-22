@@ -45,6 +45,10 @@ class DashboardViewModel(application: Application) : AndroidViewModel(applicatio
     private fun saveRecentSearches(searches: List<String>) {
         sharedPreferences.edit().putStringSet("recent_searches", searches.toSet()).apply()
     }
+    fun clearSearchResults() {
+        _searchResults.value = emptyList()
+    }
+
 
     fun addRecentSearch(query: String) {
         val currentList = _recentSearches.value?.toMutableList() ?: mutableListOf()

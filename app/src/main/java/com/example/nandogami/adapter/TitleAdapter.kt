@@ -13,7 +13,7 @@ import com.example.nandogami.model.Title
 import com.google.firebase.firestore.FirebaseFirestore
 
 class TitleAdapter(
-    private val items: List<Title>,
+    private var items: List<Title>, // Ubah dari val menjadi var agar bisa diupdate
     private val onClick: (Title) -> Unit = {}   // default: no-op
 ) : RecyclerView.Adapter<TitleAdapter.VH>() {
 
@@ -47,5 +47,13 @@ class TitleAdapter(
         holder.itemView.setOnClickListener { onClick(title) }
     }
 
-    override fun getItemCount(): Int = items.size
+
+    override fun getItemCount(): Int = items.size // Menggunakan items yang sudah ada
+
+    fun updateData(newTitles: List<Title>) {
+        this.items = newTitles // Memperbarui list items
+        notifyDataSetChanged()
+    }
+
+
 }
