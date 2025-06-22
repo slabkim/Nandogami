@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="gcm_defaultSenderId" translatable="false">190535714842</string>
-    <string name="google_api_key" translatable="false">AIzaSyDMGiYIV4XL6y5d8VtpER5lswpSfPxE6JQ</string>
-    <string name="google_app_id" translatable="false">1:190535714842:android:3ec9b1b47eea08837be9a3</string>
-    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDMGiYIV4XL6y5d8VtpER5lswpSfPxE6JQ</string>
-    <string name="google_storage_bucket" translatable="false">nandogami-45016.firebasestorage.app</string>
-    <string name="project_id" translatable="false">nandogami-45016</string>
-</resources>
