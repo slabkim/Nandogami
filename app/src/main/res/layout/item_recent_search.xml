@@ -12,7 +12,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:contentDescription="Recent Search"
-        android:src="@drawable/ic_dashboard_black_24dp"
+        android:src="@drawable/icons8_search_24"
         app:tint="@color/white" />
 
     <TextView
