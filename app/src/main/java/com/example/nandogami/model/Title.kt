@@ -1,8 +1,10 @@
 package com.example.nandogami.model
 
 import com.google.firebase.firestore.PropertyName
+import com.google.firebase.firestore.IgnoreExtraProperties
 
 // Data class tambahan untuk menangani objek di dalam array "adaptations"
+@IgnoreExtraProperties
 data class Adaptation(
     @get:PropertyName("studio") @set:PropertyName("studio")
     var studio: String = "",
@@ -18,6 +20,7 @@ data class Adaptation(
     var year: Long = 0
 )
 
+@IgnoreExtraProperties
 data class Title(
     // ID dokumen, akan kita isi secara manual
     var id: String = "",

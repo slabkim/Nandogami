@@ -10,42 +10,117 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.example.nandogami.adapter.TitleAdapter
 import com.example.nandogami.adapter.CommentAdapter
+import com.example.nandogami.adapter.TitleAdapter
 import com.example.nandogami.databinding.ActivityDetailBinding
-import com.example.nandogami.model.Title
 import com.example.nandogami.model.Comment
+import com.example.nandogami.model.Title
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.example.nandogami.R
 
 class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
     private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
     private var currentTitle: Title? = null
+    private lateinit var titleId: String
+    private var isFavorited = false
+    private var favoriteId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val titleId = intent.getStringExtra("titleId")
+        titleId = intent.getStringExtra("titleId") ?: ""
+
+        if (titleId.isBlank()) {
+            handleDataError("Title ID is missing.")
+            return
+        }
 
         binding.detailToolbar.setNavigationOnClickListener {
             onBackPressedDispatcher.onBackPressed()
         }
 
-        if (titleId.isNullOrBlank()) {
-            handleDataError("Title ID is missing.")
+        setupTabLayout()
+        fetchTitleDetails(titleId)
+
+        // **LOGIKA UNTUK MENGIRIM KOMENTAR**
+        binding.btnPostComment.setOnClickListener {
+            val commentText = binding.etCommentInput.text.toString().trim()
+            if (commentText.isNotEmpty()) {
+                // Panggil fungsi untuk memposting komentar
+                postComment(titleId, commentText)
+            } else {
+                Toast.makeText(this, "Comment cannot be empty", Toast.LENGTH_SHORT).show()
+            }
+        }
+        checkFavoriteStatus()
+
+        // Listener untuk ikon favorit
+        binding.ivFavorite.setOnClickListener {
+            toggleFavoriteStatus()
+        }
+    }
+
+    private fun checkFavoriteStatus() {
+        val userId = auth.currentUser?.uid
+        if (userId == null) return
+
+        db.collection("favorites")
+            .whereEqualTo("userId", userId)
+            .whereEqualTo("titleId", titleId)
+            .get()
+            .addOnSuccessListener { documents ->
+                if (!documents.isEmpty) {
+                    isFavorited = true // Now this assignment is valid
+                    favoriteId = documents.documents.first().id // This assignment is valid
+                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite_filled)
+                } else {
+                    isFavorited = false // And this one
+                    favoriteId = null   // And this one
+                    binding.ivFavorite.setImageResource(R.drawable.ic_favorite_border)
+                }
+            }
+    }
+
+    private fun toggleFavoriteStatus() {
+        val userId = auth.currentUser?.uid
+        if (userId == null) {
+            Toast.makeText(this, "You need to be logged in", Toast.LENGTH_SHORT).show()
             return
         }
 
-        setupTabLayout()
-        fetchTitleDetails(titleId)
+        if (isFavorited) { // Now this condition is valid
+            // Hapus dari favorit
+            favoriteId?.let {
+                db.collection("favorites").document(it).delete()
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Removed from favorites", Toast.LENGTH_SHORT).show()
+                        checkFavoriteStatus() // Perbarui status
+                    }
+            }
+        } else {
+            // Tambah ke favorit
+            val favoriteData = hashMapOf(
+                "userId" to userId,
+                "titleId" to titleId,
+                "timestamp" to System.currentTimeMillis()
+            )
+            db.collection("favorites").add(favoriteData)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Added to favorites", Toast.LENGTH_SHORT).show()
+                    checkFavoriteStatus() // Perbarui status
+                }
+        }
     }
 
     private fun setupTabLayout() {
-        // Setup tab selection listener
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when (tab?.position) {
@@ -54,122 +129,102 @@ class DetailActivity : AppCompatActivity() {
                     2 -> showCommentsContent()
                 }
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {}
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
     }
 
+    // Fungsi ini akan menampilkan tab "About"
     private fun showAboutContent() {
-        // Tampilkan konten About dengan data dari database
         binding.contentAbout.visibility = View.VISIBLE
         binding.contentWhereToRead.visibility = View.GONE
         binding.contentComments.visibility = View.GONE
-        
-        // Populate data dari database
-        currentTitle?.let { title ->
-            populateAboutContent(title)
-        }
+        currentTitle?.let { populateAboutContent(it) }
     }
 
+    // Fungsi ini akan menampilkan tab "Where to Read"
     private fun showWhereToReadContent() {
-        // Tampilkan konten Where to Read dengan mock data
         binding.contentAbout.visibility = View.GONE
         binding.contentWhereToRead.visibility = View.VISIBLE
         binding.contentComments.visibility = View.GONE
-        
-        // Setup click listeners untuk card
         setupWhereToReadClickListeners()
     }
 
+    // Fungsi ini akan menampilkan tab "Comments"
     private fun showCommentsContent() {
-        // Tampilkan konten Comments dengan mock data
         binding.contentAbout.visibility = View.GONE
         binding.contentWhereToRead.visibility = View.GONE
         binding.contentComments.visibility = View.VISIBLE
-        
-        // Setup comments
-        setupComments()
+        // Mengambil data komentar dari database
+        fetchComments(titleId)
     }
 
-    private fun setupWhereToReadClickListeners() {
-        binding.cardMangaPlus.setOnClickListener {
-            openUrl("https://mangaplus.shueisha.co.jp/")
+    /**
+     * Mengambil daftar komentar dari Firestore untuk titleId yang spesifik
+     * dan menampilkannya di RecyclerView.
+     */
+    private fun fetchComments(titleId: String) {
+        db.collection("comments")
+            .whereEqualTo("titleId", titleId)
+            .orderBy("timestamp", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { documents ->
+                val comments = documents.toObjects(Comment::class.java)
+                binding.rvComments.layoutManager = LinearLayoutManager(this)
+                binding.rvComments.adapter = CommentAdapter(comments)
+            }
+            .addOnFailureListener { e ->
+                Log.e("DetailActivity", "Error fetching comments", e)
+            }
+    }
+
+    /**
+     * **FUNGSI UTAMA UNTUK MENAMBAHKAN KOMENTAR**
+     * Fungsi ini membuat objek Comment baru dan menyimpannya ke koleksi "comments" di Firestore.
+     */
+    private fun postComment(titleId: String, commentText: String) {
+        val user = auth.currentUser
+        // Pastikan pengguna sudah login
+        if (user == null) {
+            Toast.makeText(this, "You need to be logged in to comment", Toast.LENGTH_SHORT).show()
+            return
         }
 
-        binding.cardViz.setOnClickListener {
-            openUrl("https://www.viz.com/")
-        }
+        // Ambil username dari profil pengguna untuk ditampilkan
+        db.collection("users").document(user.uid).get()
+            .addOnSuccessListener { document ->
+                val username = document.getString("username") ?: "Anonymous"
 
-        binding.cardCrunchyroll.setOnClickListener {
-            openUrl("https://www.crunchyroll.com/manga")
-        }
+                // Buat ID unik untuk dokumen komentar baru
+                val commentId = db.collection("comments").document().id
+
+                // Buat objek Comment baru
+                val newComment = Comment(
+                    id = commentId,
+                    titleId = titleId,
+                    userId = user.uid,
+                    userName = username,
+                    commentText = commentText,
+                    timestamp = System.currentTimeMillis()
+                )
+
+                // Simpan objek ke Firestore
+                db.collection("comments").document(commentId).set(newComment)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "Comment posted!", Toast.LENGTH_SHORT).show()
+                        binding.etCommentInput.text.clear() // Kosongkan input field
+                        fetchComments(titleId) // Muat ulang komentar untuk menampilkan yang baru
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(this, "Failed to post comment: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to get user profile.", Toast.LENGTH_SHORT).show()
+            }
     }
 
-    private fun setupComments() {
-        val mockComments = createMockComments()
-        
-        binding.rvComments.layoutManager = LinearLayoutManager(this)
-        binding.rvComments.adapter = CommentAdapter(mockComments)
-    }
-
-    private fun createMockComments(): List<Comment> {
-        val currentTime = System.currentTimeMillis()
-        val oneHour = 60 * 60 * 1000L
-        val oneDay = 24 * 60 * 60 * 1000L
-        
-        return listOf(
-            Comment(
-                id = "1",
-                userName = "MangaFan123",
-                userAvatar = "",
-                commentText = "This manga is absolutely incredible! The story is so engaging and the characters are well-developed. I can't wait for the next chapter!",
-                timestamp = currentTime - oneHour,
-                likeCount = 24
-            ),
-            Comment(
-                id = "2",
-                userName = "OtakuLife",
-                userAvatar = "",
-                commentText = "The art style is amazing and the action scenes are so dynamic. This is definitely one of my favorite manga series right now.",
-                timestamp = currentTime - 2 * oneHour,
-                likeCount = 18
-            ),
-            Comment(
-                id = "3",
-                userName = "WeebMaster",
-                userAvatar = "",
-                commentText = "I love how the story explores deeper themes while still being entertaining. The character development is top-notch!",
-                timestamp = currentTime - oneDay,
-                likeCount = 31
-            ),
-            Comment(
-                id = "4",
-                userName = "AnimeLover",
-                userAvatar = "",
-                commentText = "Just finished reading the latest chapter. The plot twist was unexpected but brilliant! Can't wait to see what happens next.",
-                timestamp = currentTime - 3 * oneHour,
-                likeCount = 15
-            ),
-            Comment(
-                id = "5",
-                userName = "MangaReader",
-                userAvatar = "",
-                commentText = "The world-building in this manga is fantastic. Every detail feels thought out and the lore is so interesting.",
-                timestamp = currentTime - 2 * oneDay,
-                likeCount = 42
-            )
-        )
-    }
-
-    private fun openUrl(url: String) {
-        try {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
-            startActivity(intent)
-        } catch (e: Exception) {
-            Toast.makeText(this, "Could not open link", Toast.LENGTH_SHORT).show()
-        }
-    }
+    // --- Fungsi-fungsi lain untuk menampilkan data detail (TIDAK PERLU DIUBAH) ---
 
     private fun fetchTitleDetails(id: String) {
         db.collection("titles").document(id).get()
@@ -180,7 +235,8 @@ class DetailActivity : AppCompatActivity() {
                         title.id = document.id
                         currentTitle = title
                         populateHeaderInfo(title)
-                        showAboutContent() // Default show About tab
+                        // Secara default, tampilkan tab "About" saat halaman pertama kali dibuka
+                        showAboutContent()
                     } else {
                         handleDataError("Failed to parse title data.")
                     }
@@ -194,30 +250,22 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun populateHeaderInfo(title: Title) {
-        // --- Header ---
         binding.collapsingToolbar.title = title.title
         Glide.with(this).load(title.imageUrl).into(binding.ivDetailImage)
-
-        // --- Info Utama ---
         binding.tvDetailTitle.text = title.title
         binding.tvDetailAuthor.text = title.author
         binding.tvDetailTypeBadge.text = title.type
         binding.detailRatingBar.rating = title.rating.toFloat()
         binding.tvDetailRatingValue.text = String.format("%.1f", title.rating)
-
-        // --- Categories (Chips) ---
         binding.chipGroupCategories.removeAllViews()
         title.categories.forEach { categoryName ->
             val chip = Chip(this).apply { text = categoryName }
             binding.chipGroupCategories.addView(chip)
         }
-
-        // --- Synopsis ---
         binding.tvDetailSynopsis.text = title.synopsis
     }
 
     private fun populateAboutContent(title: Title) {
-        // --- Alternative Titles ---
         if (title.alternativesTitles.isNotEmpty()) {
             binding.headerAlternativeTitles.visibility = View.VISIBLE
             binding.tvAlternativeTitles.visibility = View.VISIBLE
@@ -226,21 +274,15 @@ class DetailActivity : AppCompatActivity() {
             binding.headerAlternativeTitles.visibility = View.GONE
             binding.tvAlternativeTitles.visibility = View.GONE
         }
-
-        // --- Information Table ---
         binding.tvInfoType.text = title.type
         binding.tvInfoFormat.text = title.format
         binding.tvInfoReleaseYear.text = title.release_year.toString()
         binding.tvInfoChapters.text = title.chapters.toString()
-
-        // --- Themes (Chips) ---
         binding.chipGroupThemes.removeAllViews()
         title.theme.forEach { themeName ->
             val chip = Chip(this).apply { text = themeName }
             binding.chipGroupThemes.addView(chip)
         }
-
-        // --- Adaptations ---
         binding.layoutAdaptations.removeAllViews()
         title.adaptations.forEach { adaptation ->
             val adaptationView = TextView(this).apply {
@@ -250,52 +292,47 @@ class DetailActivity : AppCompatActivity() {
             }
             binding.layoutAdaptations.addView(adaptationView)
         }
-
-        // --- Discover Section ---
         setupDiscoverSection(title.id)
     }
 
-    // FUNGSI BARU UNTUK MENGAMBIL DATA DISCOVER
     private fun setupDiscoverSection(currentTitleId: String) {
         binding.rvDiscover.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-
-        db.collection("titles")
-            .get()
-            .addOnSuccessListener { documents ->
-                val allTitles = documents.mapNotNull { doc ->
-                    val title = doc.toObject(Title::class.java)
-                    title.id = doc.id
-                    title
-                }
-
-                // Filter judul yang sedang ditampilkan, acak sisanya, dan ambil 4
-                val discoverList = allTitles.filter { it.id != currentTitleId }.shuffled().take(4)
-
-                if (discoverList.isNotEmpty()) {
-                    binding.headerDiscover.visibility = View.VISIBLE
-                    binding.rvDiscover.visibility = View.VISIBLE
-
-                    val adapter = TitleAdapter(discoverList) { title ->
-                        // Saat item discover di-klik, buka halaman detail baru
-                        val intent = Intent(this, DetailActivity::class.java).apply {
-                            putExtra("titleId", title.id)
-                            // Flag ini agar tidak menumpuk activity yang sama
-                            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                        }
-                        startActivity(intent)
-                    }
-                    binding.rvDiscover.adapter = adapter
-                } else {
-                    // Sembunyikan section Discover jika tidak ada item lain
-                    binding.headerDiscover.visibility = View.GONE
-                    binding.rvDiscover.visibility = View.GONE
-                }
+        db.collection("titles").get().addOnSuccessListener { documents ->
+            val allTitles = documents.mapNotNull { doc ->
+                val title = doc.toObject(Title::class.java)
+                title.id = doc.id
+                title
             }
-            .addOnFailureListener { e ->
-                Log.e("DetailActivity", "Failed to fetch discover titles", e)
+            val discoverList = allTitles.filter { it.id != currentTitleId }.shuffled().take(4)
+            if (discoverList.isNotEmpty()) {
+                binding.headerDiscover.visibility = View.VISIBLE
+                binding.rvDiscover.visibility = View.VISIBLE
+                binding.rvDiscover.adapter = TitleAdapter(discoverList) { title ->
+                    val intent = Intent(this, DetailActivity::class.java).apply {
+                        putExtra("titleId", title.id)
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
+                    startActivity(intent)
+                }
+            } else {
                 binding.headerDiscover.visibility = View.GONE
                 binding.rvDiscover.visibility = View.GONE
             }
+        }
+    }
+
+    private fun setupWhereToReadClickListeners() {
+        binding.cardMangaPlus.setOnClickListener { openUrl("https://mangaplus.shueisha.co.jp/") }
+        binding.cardViz.setOnClickListener { openUrl("https://www.viz.com/") }
+        binding.cardCrunchyroll.setOnClickListener { openUrl("https://www.crunchyroll.com/manga") }
+    }
+
+    private fun openUrl(url: String) {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        } catch (e: Exception) {
+            Toast.makeText(this, "Could not open link", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun handleDataError(message: String) {
