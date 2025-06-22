@@ -1,0 +1,286 @@
+[
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\layout_item_title.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\layout\\item_title.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\navigation_nav_main.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\navigation\\nav_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\mipmap-mdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\mipmap-anydpi_ic_launcher_round.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\mipmap-anydpi\\ic_launcher_round.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\layout_item_recent_search.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\layout\\item_recent_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-mdpi_ic_user_profile.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-mdpi\\ic_user_profile.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_icons8_customer_24.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\icons8_customer_24.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_circle_purple_avatar.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\circle_purple_avatar.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_search.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\search.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_gradient_overlay_bottom.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\gradient_overlay_bottom.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\mipmap-xxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_ic_dashboard_black_24dp.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\ic_dashboard_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\layout_fragment_home.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\layout\\fragment_home.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\mipmap-xhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_ic_home_black_24dp.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\ic_home_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_sample.jpg.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\sample.jpg"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-xxhdpi_ic_edit_black.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-xxhdpi\\ic_edit_black.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-xxhdpi_ic_user_profile.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-xxhdpi\\ic_user_profile.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\layout_fragment_profile.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\layout\\fragment_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-hdpi_ic_edit_black.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-hdpi\\ic_edit_black.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\mipmap-xxxhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\mipmap-anydpi_ic_launcher.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\mipmap-anydpi\\ic_launcher.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_icons8_search_24.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\icons8_search_24.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_icons8_discover_24.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\icons8_discover_24.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-xxxhdpi_ic_user_profile.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-xxxhdpi\\ic_user_profile.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-mdpi_ic_edit.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-mdpi\\ic_edit.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-mdpi_ic_edit_black.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-mdpi\\ic_edit_black.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\navigation_nav_graph.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\navigation\\nav_graph.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_explore.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\explore.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\layout_fragment_login.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\layout\\fragment_login.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\layout_activity_auth.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\layout\\activity_auth.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\mipmap-xxxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\menu_bottom_nav_menu.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\menu\\bottom_nav_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\layout_fragment_register.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\layout\\fragment_register.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_profilebglogin.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\profilebglogin.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\xml\\data_extraction_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-hdpi_ic_user_profile.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-hdpi\\ic_user_profile.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\layout_item_featured.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\layout\\item_featured.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\layout_activity_detail.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\layout\\activity_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_circle_bg.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\circle_bg.xml"
+    },
+    {
+        "merged": "com.example.nandogami.app-debug-61:/layout_activity_edit_profile.xml.flat",
+        "source": "com.example.nandogami.app-main-63:/layout/activity_edit_profile.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-xxxhdpi_ic_edit.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-xxxhdpi\\ic_edit.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_bg_chip.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\bg_chip.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_bg_gradient_button.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\bg_gradient_button.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_ic_notifications_black_24dp.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\ic_notifications_black_24dp.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\mipmap-xxhdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\navigation_mobile_navigation.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\navigation\\mobile_navigation.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-xxhdpi_ic_edit.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-xxhdpi\\ic_edit.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\mipmap-xhdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_ic_arrow_back.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\ic_arrow_back.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\mipmap-hdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_profile.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\profile.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-xhdpi_ic_edit.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-xhdpi\\ic_edit.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_bg_badge.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\bg_badge.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\mipmap-hdpi\\ic_launcher.webp"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_item_featured.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\item_featured.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\layout_item_category.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\layout\\item_category.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-xhdpi_ic_edit_black.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-xhdpi\\ic_edit_black.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\layout_fragment_dashboard.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\layout\\fragment_dashboard.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_bg_otaku_tag.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\bg_otaku_tag.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-hdpi_ic_edit.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-hdpi\\ic_edit.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable_bg_gradient_purple.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable\\bg_gradient_purple.xml"
+    },
+    {
+        "merged": "com.example.nandogami.app-debug-61:/menu_edit_profile_menu.xml.flat",
+        "source": "com.example.nandogami.app-main-63:/menu/edit_profile_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\navigation_nav_auth.xml.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\navigation\\nav_auth.xml"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-xhdpi_ic_user_profile.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-xhdpi\\ic_user_profile.png"
+    },
+    {
+        "merged": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-debug-61:\\drawable-xxxhdpi_ic_edit_black.png.flat",
+        "source": "C:\\Users\\ACER\\.gradle\\daemon\\8.11.1\\com.example.nandogami.app-main-63:\\drawable-xxxhdpi\\ic_edit_black.png"
+    }
+]
