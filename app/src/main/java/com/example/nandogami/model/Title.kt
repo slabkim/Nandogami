@@ -61,6 +61,9 @@ data class Title(
     @get:PropertyName("title") @set:PropertyName("title")
     var title: String = "",
 
+    @get:PropertyName("title_lowercase") @set:PropertyName("title_lowercase")
+    var title_lowercase: String = "",
+
     @get:PropertyName("type") @set:PropertyName("type")
     var type: String = "",
 

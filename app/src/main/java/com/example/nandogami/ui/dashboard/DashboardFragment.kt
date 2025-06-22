@@ -1,11 +1,12 @@
 package com.example.nandogami.ui.dashboard
 
+import android.content.Intent // <-- TAMBAHKAN IMPORT INI
 import android.os.Bundle
+import android.util.Log // <-- TAMBAHKAN IMPORT INI
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,14 +15,12 @@ import com.example.nandogami.adapter.RecentSearchAdapter
 import com.example.nandogami.adapter.TitleAdapter
 import com.example.nandogami.databinding.FragmentDashboardBinding
 import com.example.nandogami.model.Title
+import com.example.nandogami.ui.detail.DetailActivity // <-- TAMBAHKAN IMPORT INI
 import com.google.android.material.chip.Chip
 
 class DashboardFragment : Fragment() {
 
     private var _binding: FragmentDashboardBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     private lateinit var dashboardViewModel: DashboardViewModel
@@ -47,6 +46,18 @@ class DashboardFragment : Fragment() {
         observeViewModel()
     }
 
+    // FUNGSI BARU UNTUK NAVIGASI
+    private fun navigateToDetail(title: Title) {
+        if (title.id.isBlank()) {
+            Log.e("DashboardFragment", "Gagal navigasi: Title ID kosong untuk judul '${title.title}'")
+            return
+        }
+        val intent = Intent(requireContext(), DetailActivity::class.java).apply {
+            putExtra("titleId", title.id)
+        }
+        startActivity(intent)
+    }
+
     private fun setupSearchBox() {
         binding.searchEditText.setOnEditorActionListener { textView, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -61,8 +72,9 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setupSearchResults() {
+        // MODIFIKASI BAGIAN INI
         searchResultsAdapter = TitleAdapter(emptyList()) { title ->
-            // Handle title click
+            navigateToDetail(title) // Panggil fungsi navigasi saat item diklik
         }
         binding.searchResultsRecyclerView.apply {
             layoutManager = GridLayoutManager(context, 2)
@@ -86,10 +98,17 @@ class DashboardFragment : Fragment() {
 
     private fun observeViewModel() {
         dashboardViewModel.searchResults.observe(viewLifecycleOwner) { titles ->
-            // This is not the best way to update data in an adapter.
-            // A better way is to use DiffUtil or ListAdapter,
-            // but for simplicity, we create a new adapter instance.
-            binding.searchResultsRecyclerView.adapter = TitleAdapter(titles ?: emptyList())
+            // Perbarui adapter dengan data baru dan fungsi klik yang sudah diatur
+            (binding.searchResultsRecyclerView.adapter as TitleAdapter).apply {
+                // Anda perlu membuat metode untuk memperbarui data di adapter
+                // atau cukup buat instance adapter baru seperti ini
+                binding.searchResultsRecyclerView.adapter = TitleAdapter(titles ?: emptyList()) { title ->
+                    navigateToDetail(title)
+                }
+            }
+
+            val count = titles?.size ?: 0
+            binding.tvTitlesCount.text = "$count titles"
         }
 
         dashboardViewModel.recentSearches.observe(viewLifecycleOwner) { searches ->
