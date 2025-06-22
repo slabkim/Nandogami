@@ -50,7 +50,7 @@ data class Title(
     var rating: Double = 0.0,
 
     @get:PropertyName("release_year") @set:PropertyName("release_year")
-    var release_year: String = "",
+    var release_year: Long = 0,
 
     @get:PropertyName("synopsis") @set:PropertyName("synopsis")
     var synopsis: String = "",
@@ -83,7 +83,7 @@ data class Title(
         isNewRelease = false,
         isPopular = false,
         rating = 0.0,
-        release_year = "",
+        release_year = 0,
         synopsis = "",
         theme = emptyList(),
         title = "",

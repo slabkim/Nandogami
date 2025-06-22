@@ -138,7 +138,7 @@ class DetailActivity : AppCompatActivity() {
         // --- Information Table ---
         binding.tvInfoType.text = title.type
         binding.tvInfoFormat.text = title.format
-        binding.tvInfoReleaseYear.text = title.release_year
+        binding.tvInfoReleaseYear.text = title.release_year.toString()
         binding.tvInfoChapters.text = title.chapters.toString()
 
         // --- Themes (Chips) ---
