@@ -9,7 +9,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/logogede"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_launcher_round"
+        android:roundIcon="@drawable/circle_bg"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nandogami"
         tools:targetApi="31">
