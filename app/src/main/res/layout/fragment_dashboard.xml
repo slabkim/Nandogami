@@ -26,14 +26,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivProfile"
             android:layout_width="36dp"
             android:layout_height="36dp"
-            android:src="@drawable/profile"
+            android:src="@drawable/sample"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="Profile" />
+
 
         <TextView
             android:id="@+id/tvSearchTitle"
