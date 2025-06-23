@@ -128,13 +128,24 @@ class ProfileFragment : Fragment() {
             db.collection("users").document(uid).get()
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
-                        binding.username.text = document.getString("username") ?: "User"
-                        binding.userhandle.text = "@${document.getString("handle") ?: "handle"}"
+                        val email = auth.currentUser?.email
+                        val usernameFromEmail = email?.substringBefore('@')?.replaceFirstChar { it.uppercase() } ?: "user"
+                        val handleFromEmail = "@${usernameFromEmail.toLowerCase()}"
+
+                        binding.username.text = document.getString("username") ?: usernameFromEmail
+                        val handle = document.getString("handle")
+                        binding.userhandle.text = if (!handle.isNullOrEmpty()) "@${handle.toLowerCase()}" else handleFromEmail
+                    } else {
+                        // Jika dokumen pengguna tidak ada, gunakan informasi dari email
+                        val email = auth.currentUser?.email
+                        val usernameFromEmail = email?.substringBefore('@')?.replaceFirstChar { it.uppercase() } ?: "user"
+                        val handleFromEmail = "@${usernameFromEmail.toLowerCase()}"
+                        binding.username.text = usernameFromEmail
+                        binding.userhandle.text = handleFromEmail
                     }
                 }
         }
     }
-
     private fun setupLogoutButton2() {
         binding.btnLogout2.setOnClickListener {
             auth.signOut()
