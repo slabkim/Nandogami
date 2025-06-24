@@ -6,7 +6,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
+import android.widget.*
+import androidx.core.content.ContextCompat
 import com.example.nandogami.R
 import com.example.nandogami.databinding.ActivityEditProfileBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -31,6 +32,10 @@ class EditProfileActivity : AppCompatActivity() {
     private var selectedImageUri: Uri? = null
     private var uploadedPhotoUrl: String? = null
     private var isUploadingPhoto = false
+
+    // Untuk referensi genre chip
+    private val genreChipList = mutableListOf<com.google.android.material.chip.Chip>()
+
     companion object {
         private const val PICK_IMAGE_REQUEST = 101
     }
@@ -49,18 +54,108 @@ class EditProfileActivity : AppCompatActivity() {
 
         // Set default image sebelum load data
         binding.profileImageView.setImageResource(R.drawable.ic_user_profile)
-
-        // Set a loading state
         binding.displayNameTextView.text = "Loading..."
         binding.usernameTextView.text = ""
-        
+
         loadUserData()
         setupBioCharacterCounter()
 
-        // Tambahkan listener untuk memilih gambar
         binding.profileImageView.setOnClickListener { openImagePicker() }
         binding.cameraIcon.setOnClickListener { openImagePicker() }
+
+        // ==== TAB SWITCH LOGIC ====
+        binding.tabLayout.addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab) {
+                binding.layoutBasicInfo.visibility = if (tab.position == 0) android.view.View.VISIBLE else android.view.View.GONE
+                binding.layoutPreferences.visibility = if (tab.position == 1) android.view.View.VISIBLE else android.view.View.GONE
+                binding.layoutPrivacy.visibility = if (tab.position == 2) android.view.View.VISIBLE else android.view.View.GONE
+            }
+            override fun onTabUnselected(tab: com.google.android.material.tabs.TabLayout.Tab?) {}
+            override fun onTabReselected(tab: com.google.android.material.tabs.TabLayout.Tab?) {}
+        })
+
+        // ==== FAVORITE GENRES 2 KOLOM ====
+        setupGenreChips2Columns()
     }
+
+    private fun setupGenreChips2Columns() {
+        val genres = listOf(
+            "Action", "Adventure", "Comedy", "Drama",
+            "Fantasy", "Horror", "Isekai", "Romance",
+            "Sci-Fi", "Slice of Life", "Shounen", "Shoujo",
+            "Seinen", "Josei", "Webtoon", "Martial Arts",
+            "School Life", "Supernatural"
+        )
+        val container = binding.genreContainer
+        container.removeAllViews()
+        genreChipList.clear()
+        val chipMargin = 8 // dp
+
+        fun dpToPx(dp: Int): Int = (dp * resources.displayMetrics.density).toInt()
+
+        for (i in genres.indices step 2) {
+            val row = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    topMargin = dpToPx(0)
+                    bottomMargin = dpToPx(12) // Atur jarak antar baris di sini!
+                }
+            }
+
+            // Chip 1
+            val chip1 = createGenreChip(genres[i])
+            chip1.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply {
+                marginEnd = dpToPx(chipMargin / 2)
+            }
+            row.addView(chip1)
+            genreChipList.add(chip1)
+
+            // Chip 2 (kalau ada)
+            if (i + 1 < genres.size) {
+                val chip2 = createGenreChip(genres[i + 1])
+                chip2.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply {
+                    marginStart = dpToPx(chipMargin / 2)
+                }
+                row.addView(chip2)
+                genreChipList.add(chip2)
+            } else {
+                val space = Space(this)
+                space.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+                row.addView(space)
+            }
+            container.addView(row)
+        }
+
+        // Set listener ke semua chip untuk update count
+        for (chip in genreChipList) {
+            chip.setOnCheckedChangeListener { _, _ -> updateGenreCount() }
+        }
+        updateGenreCount()
+    }
+
+    private fun createGenreChip(text: String): com.google.android.material.chip.Chip {
+        return com.google.android.material.chip.Chip(this).apply {
+            this.text = text
+            isCheckable = true
+            isCheckedIconVisible = false
+            setTextColor(ContextCompat.getColor(context, R.color.white))
+            chipBackgroundColor = ContextCompat.getColorStateList(context, R.color.chip_selector)
+            textAlignment = android.view.View.TEXT_ALIGNMENT_CENTER
+            textSize = 15f
+            chipCornerRadius = resources.getDimension(R.dimen.chip_radius)
+            minWidth = 0
+        }
+    }
+
+    private fun updateGenreCount() {
+        val checkedCount = genreChipList.count { it.isChecked }
+        binding.selectedGenreCount.text = "Selected: $checkedCount genres"
+    }
+
+    // ---- FUNGSI LAINNYA TIDAK BERUBAH ----
 
     private fun openImagePicker() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
@@ -156,7 +251,7 @@ class EditProfileActivity : AppCompatActivity() {
                         binding.usernameEditText.setText(document.getString("handle"))
                         binding.bioEditText.setText(document.getString("bio"))
                         binding.displayNameTextView.text = document.getString("username")
-                        binding.usernameTextView.text = "@${document.getString("handle")}" 
+                        binding.usernameTextView.text = "@${document.getString("handle")}"
                         val photoUrl = document.getString("photoUrl")
                         if (!photoUrl.isNullOrEmpty()) {
                             Glide.with(this)
@@ -170,7 +265,6 @@ class EditProfileActivity : AppCompatActivity() {
                             binding.profileImageView.setImageResource(R.drawable.ic_user_profile)
                         }
                     } else {
-                        // Document doesn't exist, create a default view for a new user
                         val email = user.email ?: ""
                         val defaultUsername = email.substringBefore('@').replaceFirstChar { if (it.isLowerCase()) it.titlecase(java.util.Locale.ROOT) else it.toString() }
                         val defaultHandle = email.substringBefore('@')
@@ -184,7 +278,6 @@ class EditProfileActivity : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener { e ->
-                    // Handle failure to load data
                     Toast.makeText(this, "Failed to load profile: ${e.message}", Toast.LENGTH_SHORT).show()
                     binding.displayNameTextView.text = "Error"
                     binding.usernameTextView.text = "Could not load profile"
@@ -258,4 +351,4 @@ class EditProfileActivity : AppCompatActivity() {
                 }
         }
     }
-} 
+}

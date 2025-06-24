@@ -32,4 +32,9 @@
     <color name="surface">#1A1A1A</color>
     <color name="onBackground">#FFFFFF</color>
     <color name="light_gray">#2D2D2D</color>
+
+    <color name="chip_bg">#232436</color>
+    <color name="chip_selector_base">#1F2937</color>
+    <color name="chip_selected">#9C4DFF</color>
+
 </resources>
