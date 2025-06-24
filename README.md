@@ -3,6 +3,14 @@ Aplikasi Rekomendasi Komik & Manga Paling Keren untuk Android
 
 ---
 
+## 📲 Download Aplikasi
+
+Tidak sabar mencoba Nandogami? Download versi terbarunya langsung di sini!
+
+[**Download Nandogami v1.0.0 (.apk)**](https://github.com/slabkim/Nandogami/releases/download/v1.0.0/Nandogami.apk)
+
+---
+
 ## 🚀 Apa itu Nandogami?
 
 **Nandogami** adalah aplikasi Android modern yang dirancang khusus untuk para pecinta manga dan komik. Dengan Nandogami, kamu bisa menemukan, mencari, dan mendapatkan rekomendasi komik terbaik dari berbagai genre, lengkap dengan fitur animasi, tampilan dark mode yang elegan, dan pengalaman pengguna yang interaktif. Temukan komik favoritmu, baca detailnya, dan dapatkan rekomendasi terbaru setiap saat!
