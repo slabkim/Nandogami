@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/icons8_discover_24"
+        android:title="Discover" />
+    <item
+        android:id="@+id/dashboardFragment"
+        android:icon="@drawable/icons8_search_24"
+        android:title="Search" />
+    <item
+        android:id="@+id/notificationsFragment"
+        android:icon="@drawable/icons8_customer_24"
+        android:title="Profile" />
+</menu>

@@ -1,0 +1,40 @@
+{
+  "rules": {
+    "chats": {
+      "$chatId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    "chat_messages": {
+      "$chatId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    "users": {
+      "$userId": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.uid == $userId"
+      }
+    },
+    "follows": {
+      "$followId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    "reading_status": {
+      "$statusId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    },
+    "user_recommendations": {
+      "$recommendationId": {
+        ".read": "auth != null",
+        ".write": "auth != null"
+      }
+    }
+  }
+} 
