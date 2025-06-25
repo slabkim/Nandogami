@@ -1,5 +1,6 @@
 package com.example.nandogami.ui.profile
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -20,9 +21,15 @@ import android.util.Log
 import com.bumptech.glide.Glide
 import okhttp3.*
 import org.json.JSONObject
+import org.json.JSONException
 import java.io.File
 import java.io.IOException
+import java.io.FileOutputStream
+import android.provider.OpenableColumns
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import androidx.activity.result.contract.ActivityResultContracts
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.InputStream
 
 class EditProfileActivity : AppCompatActivity() {
 
@@ -76,6 +83,19 @@ class EditProfileActivity : AppCompatActivity() {
 
         // ==== FAVORITE GENRES 2 KOLOM ====
         setupGenreChips2Columns()
+    }
+
+    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            if (data != null && data.data != null) {
+                selectedImageUri = data.data
+                selectedImageUri?.let {
+                    Glide.with(this).load(it).into(binding.profileImageView)
+                    uploadToCloudinary(it) // Your existing function
+                }
+            }
+        }
     }
 
     private fun setupGenreChips2Columns() {
@@ -145,7 +165,10 @@ class EditProfileActivity : AppCompatActivity() {
             chipBackgroundColor = ContextCompat.getColorStateList(context, R.color.chip_selector)
             textAlignment = android.view.View.TEXT_ALIGNMENT_CENTER
             textSize = 15f
-            chipCornerRadius = resources.getDimension(R.dimen.chip_radius)
+            val cornerRadius = resources.getDimension(R.dimen.chip_radius)
+            this.shapeAppearanceModel = com.google.android.material.shape.ShapeAppearanceModel.builder()
+                .setAllCorners(com.google.android.material.shape.CornerFamily.ROUNDED, cornerRadius)
+                .build()
             minWidth = 0
         }
     }
@@ -160,7 +183,7 @@ class EditProfileActivity : AppCompatActivity() {
     private fun openImagePicker() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = "image/*"
-        startActivityForResult(intent, PICK_IMAGE_REQUEST)
+        pickImageLauncher.launch(intent) // Use the new launcher
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -176,52 +199,130 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun uploadToCloudinary(imageUri: Uri) {
         isUploadingPhoto = true
-        runOnUiThread { invalidateOptionsMenu() }
+        runOnUiThread { invalidateOptionsMenu() } // Pastikan ini aman untuk UI thread
+
         val cloudName = "dkcz4v94a"
         val uploadPreset = "android_unsigned"
         val url = "https://api.cloudinary.com/v1_1/$cloudName/image/upload"
-        val filePath = getRealPathFromURI(imageUri)
-        if (filePath == null) {
-            Toast.makeText(this, "Gagal mendapatkan file gambar", Toast.LENGTH_SHORT).show()
+
+        // --- Salin file ke cache dan gunakan path dari cache ---
+        val fileToUpload: File? = try {
+            val inputStream: InputStream? = contentResolver.openInputStream(imageUri)
+            if (inputStream == null) {
+                Log.e("EditProfileActivity", "Gagal membuka input stream dari Uri.")
+                runOnUiThread {
+                    Toast.makeText(this, "Gagal mendapatkan file gambar (stream null)", Toast.LENGTH_SHORT).show()
+                    isUploadingPhoto = false
+                    invalidateOptionsMenu()
+                }
+                return
+            }
+            // Buat nama file unik atau gunakan yang sudah ada jika memungkinkan
+            val originalFileName = getFileName(imageUri) ?: "upload_image_${System.currentTimeMillis()}"
+            val tempFile = File(cacheDir, originalFileName) // Gunakan cacheDir
+            val outputStream = FileOutputStream(tempFile)
+            inputStream.copyTo(outputStream)
+            inputStream.close()
+            outputStream.close()
+            tempFile
+        } catch (e: IOException) {
+            Log.e("EditProfileActivity", "Gagal menyalin file ke cache", e)
+            runOnUiThread {
+                Toast.makeText(this, "Gagal memproses file gambar", Toast.LENGTH_SHORT).show()
+                isUploadingPhoto = false
+                invalidateOptionsMenu()
+            }
+            null
+        }
+
+        if (fileToUpload == null) {
+            Log.e("EditProfileActivity", "File yang akan diunggah null setelah mencoba menyalin.")
+            // Pesan error sudah ditampilkan di dalam try-catch
             return
         }
-        val file = File(filePath)
+        // --- End of copy file to cache ---
+
+
+        Log.d("EditProfileActivity", "Mengunggah file: ${fileToUpload.absolutePath}, Ukuran: ${fileToUpload.length()} bytes")
+
         val requestBody = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
-            .addFormDataPart("file", file.name, RequestBody.create("image/*".toMediaTypeOrNull(), file))
+            .addFormDataPart("file", fileToUpload.name, fileToUpload.asRequestBody("image/*".toMediaTypeOrNull()))
             .addFormDataPart("upload_preset", uploadPreset)
             .build()
+
         val request = Request.Builder()
             .url(url)
             .post(requestBody)
             .build()
+
         OkHttpClient().newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
+                Log.e("EditProfileActivity", "Upload gagal ke Cloudinary", e)
                 runOnUiThread {
                     isUploadingPhoto = false
                     invalidateOptionsMenu()
                     Toast.makeText(this@EditProfileActivity, "Upload gagal: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
+
             override fun onResponse(call: Call, response: Response) {
-                if (response.isSuccessful) {
-                    val json = JSONObject(response.body?.string() ?: "")
-                    val imageUrl = json.getString("secure_url")
-                    uploadedPhotoUrl = imageUrl
-                    isUploadingPhoto = false
-                    runOnUiThread {
-                        Toast.makeText(this@EditProfileActivity, "Foto profil berhasil diupload", Toast.LENGTH_SHORT).show()
-                        invalidateOptionsMenu()
+                val responseBodyString = response.body?.string() // Baca body sekali saja
+                Log.d("EditProfileActivity", "Respon Cloudinary: ${response.code} - $responseBodyString")
+                if (response.isSuccessful && responseBodyString != null) {
+                    try {
+                        val json = JSONObject(responseBodyString)
+                        val imageUrl = json.getString("secure_url")
+                        uploadedPhotoUrl = imageUrl
+                        Log.d("EditProfileActivity", "URL Gambar Terunggah: $imageUrl")
+                        runOnUiThread {
+                            Toast.makeText(this@EditProfileActivity, "Foto profil berhasil diupload", Toast.LENGTH_SHORT).show()
+                        }
+                    } catch (e: JSONException) {
+                        Log.e("EditProfileActivity", "Error parsing JSON dari Cloudinary", e)
+                        runOnUiThread {
+                            Toast.makeText(this@EditProfileActivity, "Upload berhasil tapi gagal memproses respon", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } else {
+                    Log.e("EditProfileActivity", "Upload ke Cloudinary tidak berhasil. Kode: ${response.code}, Pesan: ${response.message}, Body: $responseBodyString")
                     runOnUiThread {
-                        isUploadingPhoto = false
-                        invalidateOptionsMenu()
-                        Toast.makeText(this@EditProfileActivity, "Upload gagal: ${response.message}", Toast.LENGTH_SHORT).show()
+                        val errorHeader = response.header("X-Cld-Error") // [1]
+                        val errorMessage = errorHeader ?: "Upload gagal (server): ${response.message}"
+                        Toast.makeText(this@EditProfileActivity, errorMessage, Toast.LENGTH_LONG).show()
                     }
                 }
+                runOnUiThread {
+                    isUploadingPhoto = false
+                    invalidateOptionsMenu()
+                }
+                response.body?.close() // Pastikan body ditutup
             }
         })
+    }
+
+    // Helper function untuk mendapatkan nama file dari Uri (opsional tapi bagus)
+    @SuppressLint("Range")
+    private fun getFileName(uri: Uri): String? {
+        var result: String? = null
+        if (uri.scheme == "content") {
+            val cursor = contentResolver.query(uri, null, null, null, null)
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME))
+                }
+            } finally {
+                cursor?.close()
+            }
+        }
+        if (result == null) {
+            result = uri.path
+            val cut = result?.lastIndexOf('/')
+            if (cut != null && cut != -1) { // Tambahkan null check untuk cut
+                result = result.substring(cut + 1)
+            }
+        }
+        return result?.replace("[^a-zA-Z0-9._-]".toRegex(), "_") // Sanitize nama file
     }
 
     private fun getRealPathFromURI(contentUri: Uri): String? {

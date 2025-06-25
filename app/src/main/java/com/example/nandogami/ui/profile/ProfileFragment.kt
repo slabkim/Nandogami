@@ -135,10 +135,10 @@ class ProfileFragment : Fragment() {
                     if (document.exists()) {
                         val email = auth.currentUser?.email
                         val usernameFromEmail = email?.substringBefore('@')?.replaceFirstChar { it.uppercase() } ?: "user"
-                        val handleFromEmail = "@${usernameFromEmail.toLowerCase()}"
+                        val handleFromEmail = "@${usernameFromEmail.lowercase()}"
                         binding.username.text = document.getString("username") ?: usernameFromEmail
                         val handle = document.getString("handle")
-                        binding.userhandle.text = if (!handle.isNullOrEmpty()) "@${handle.toLowerCase()}" else handleFromEmail
+                        binding.userhandle.text = if (!handle.isNullOrEmpty()) "@${handle.lowercase()}" else handleFromEmail
                         val photoUrl = document.getString("photoUrl")
                         if (!photoUrl.isNullOrEmpty()) {
                             Glide.with(this)
@@ -154,7 +154,7 @@ class ProfileFragment : Fragment() {
                         // Jika dokumen pengguna tidak ada, gunakan informasi dari email
                         val email = auth.currentUser?.email
                         val usernameFromEmail = email?.substringBefore('@')?.replaceFirstChar { it.uppercase() } ?: "user"
-                        val handleFromEmail = "@${usernameFromEmail.toLowerCase()}"
+                        val handleFromEmail = "@${usernameFromEmail.lowercase()}"
                         binding.username.text = usernameFromEmail
                         binding.userhandle.text = handleFromEmail
                         binding.profileImage.setImageResource(R.drawable.ic_user_profile)

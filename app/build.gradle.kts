@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.viewpager2)
     implementation(libs.glide)
     implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation("com.google.firebase:firebase-storage-ktx")
 
 
     implementation(libs.androidx.core.ktx)
