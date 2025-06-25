@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import android.view.Menu
 import android.view.MenuItem
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -34,12 +35,13 @@ import android.widget.Button
 import android.widget.EditText
 import com.example.nandogami.ui.GifSearchDialogFragment
 import com.example.nandogami.ui.recommendation.UserSelectionDialogFragment
+import com.google.android.material.appbar.AppBarLayout
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : AppCompatActivity(), AppBarLayout.OnOffsetChangedListener {
     private lateinit var binding: ActivityDetailBinding
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
@@ -52,6 +54,8 @@ class DetailActivity : AppCompatActivity() {
     private var replyingToCommentId: String? = null
     private var replyingToUserName: String? = null
     private var currentReadingStatus: ReadingStatus? = null
+    private var isFavoriteIconVisible = true
+    private var lastVerticalOffset = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,7 +105,61 @@ class DetailActivity : AppCompatActivity() {
         binding.ivFavorite.setOnClickListener {
             toggleFavoriteStatus()
         }
+
+        binding.appBar.addOnOffsetChangedListener(this)
     }
+
+    override fun onOffsetChanged(appBarLayout: AppBarLayout, verticalOffset: Int) {
+        val dy = lastVerticalOffset - verticalOffset
+        lastVerticalOffset = verticalOffset
+
+        val totalScrollRange = appBarLayout.totalScrollRange
+
+        val hideThreshold = binding.ivFavorite.height + (binding.ivFavorite.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin
+
+        if (totalScrollRange + verticalOffset < hideThreshold) {
+            if (isFavoriteIconVisible && dy > 0) {
+                hideFavoriteIcon()
+            }
+        } else {
+            if (!isFavoriteIconVisible && dy < 0) {
+                showFavoriteIcon()
+            }
+        }
+
+        if (verticalOffset == 0 && !isFavoriteIconVisible) {
+            showFavoriteIcon()
+        }
+
+        if (totalScrollRange + verticalOffset == 0 && isFavoriteIconVisible) {
+            hideFavoriteIcon()
+        }
+    }
+
+    private fun showFavoriteIcon() {
+        if (!isFavoriteIconVisible) {
+            binding.ivFavorite.animate().alpha(1.0f).scaleX(1.0f).scaleY(1.0f).setDuration(200).withStartAction {
+                binding.ivFavorite.visibility = View.VISIBLE
+            }
+            isFavoriteIconVisible = true
+        }
+    }
+
+    private fun hideFavoriteIcon() {
+        if (isFavoriteIconVisible) {
+            binding.ivFavorite.animate().alpha(0.0f).scaleX(0.0f).scaleY(0.0f).setDuration(200).withEndAction {
+                binding.ivFavorite.visibility = View.GONE
+            }
+            isFavoriteIconVisible = false
+        }
+    }
+
+    // Penting untuk menghapus listener saat Activity dihancurkan untuk menghindari memory leak
+    override fun onDestroy() {
+        binding.appBar.removeOnOffsetChangedListener(this)
+        super.onDestroy()
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.detail_menu, menu)

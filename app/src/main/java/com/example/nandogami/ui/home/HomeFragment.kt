@@ -53,9 +53,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         // Klik ke halaman profile
         binding.profileImageHome.setOnClickListener {
-            // Navigasi ke ProfileFragment
-            val intent = Intent(requireContext(), com.example.nandogami.ui.profile.EditProfileActivity::class.java)
-            startActivity(intent)
+            val bottomNav = activity?.findViewById<com.google.android.material.bottomnavigation.BottomNavigationView>(R.id.bottomNavigationView)
+            bottomNav?.selectedItemId = R.id.notificationsFragment
         }
 
         // Setup LayoutManagers untuk semua RecyclerView

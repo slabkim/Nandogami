@@ -38,7 +38,6 @@
             android:focusable="true"
             android:elevation="8dp" />
 
-
         <TextView
             android:id="@+id/tvSearchTitle"
             android:layout_width="wrap_content"

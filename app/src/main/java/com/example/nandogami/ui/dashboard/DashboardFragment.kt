@@ -10,6 +10,8 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +26,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.bumptech.glide.Glide
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.findNavController
+import com.example.nandogami.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.nandogami.ui.profile.ProfileFragment
+
 
 class DashboardFragment : Fragment() {
 
@@ -45,6 +50,14 @@ class DashboardFragment : Fragment() {
         // Pindahkan inisialisasi visibilitas ke sini, setelah binding diinisialisasi
         binding.filtersGroup.visibility = View.GONE
         return binding.root
+
+        binding.ivProfile.setOnClickListener {
+            // Buat instance dari ProfileFragment
+            val profileFragment = ProfileFragment() // GANTI DENGAN NAMA FRAGMENT PROFILE ANDA
+            requireActivity().supportFragmentManager.commit {
+                replace(R.id.profileFragment, profileFragment)
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -125,6 +138,7 @@ class DashboardFragment : Fragment() {
 
         })
     }
+
 
     private fun setupSearchResults() {
         searchResultsAdapter = TitleAdapter(emptyList()) { title ->
