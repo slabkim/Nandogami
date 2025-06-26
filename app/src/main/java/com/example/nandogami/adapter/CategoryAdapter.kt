@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.nandogami.R
 
 class CategoryAdapter(
-    private val items: List<String>,
+    private var items: List<String>,
     private val onClick: (String) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.CatVH>() {
 
@@ -31,4 +31,9 @@ class CategoryAdapter(
     }
 
     override fun getItemCount(): Int = items.size
+
+    fun updateData(newCategories: List<String>) {
+        this.items = newCategories
+        notifyDataSetChanged() // Memberi tahu adapter bahwa data telah berubah
+    }
 }

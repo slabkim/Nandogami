@@ -9,7 +9,11 @@
         android:id="@+id/navigation_home"
         android:name="com.example.nandogami.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_chatHistoryFragment"
+            app:destination="@id/chatHistoryFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"

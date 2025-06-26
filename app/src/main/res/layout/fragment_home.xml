@@ -44,10 +44,22 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="16dp"/>
 
+                <ImageView
+                    android:id="@+id/ivNotifications"
+                    android:layout_width="40dp"
+                    android:layout_height="42dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:padding="6dp"
+                    android:src="@drawable/ic_notifications_black_24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/profileImageHome"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollHome"
         android:layout_width="match_parent"

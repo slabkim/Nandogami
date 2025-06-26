@@ -51,6 +51,11 @@ dependencies {
     implementation(libs.androidx.cardview)
     implementation(libs.glide)
     implementation("de.hdodenhof:circleimageview:3.1.0")
+<<<<<<< Updated upstream
+=======
+    implementation("com.google.firebase:firebase-storage-ktx")
+    implementation("com.google.firebase:firebase-messaging-ktx")
+>>>>>>> Stashed changes
 
 
     implementation(libs.androidx.core.ktx)
