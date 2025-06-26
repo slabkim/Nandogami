@@ -45,6 +45,25 @@ class OtherProfileActivity : AppCompatActivity() {
         setupButtons()
         loadOtherUserProfile(otherUserId)
         checkFollowStatus()
+
+        // Tambahkan click listener untuk follower/following/reading
+        binding.tvFollowersCount.setOnClickListener {
+            val intent = Intent(this, UserListActivity::class.java)
+            intent.putExtra("userId", otherUserId)
+            intent.putExtra("listType", "followers")
+            startActivity(intent)
+        }
+        binding.tvFollowingCount.setOnClickListener {
+            val intent = Intent(this, UserListActivity::class.java)
+            intent.putExtra("userId", otherUserId)
+            intent.putExtra("listType", "following")
+            startActivity(intent)
+        }
+        binding.tvReadingCount.setOnClickListener {
+            val intent = Intent(this, ReadingListActivity::class.java)
+            intent.putExtra("userId", otherUserId)
+            startActivity(intent)
+        }
     }
 
     private fun setupToolbar() {
@@ -60,10 +79,6 @@ class OtherProfileActivity : AppCompatActivity() {
         
         binding.btnChat.setOnClickListener {
             startChat()
-        }
-        
-        binding.btnRecommend.setOnClickListener {
-            showRecommendDialog()
         }
     }
 
@@ -125,19 +140,6 @@ class OtherProfileActivity : AppCompatActivity() {
         val intent = Intent(this, ChatActivity::class.java)
         intent.putExtra("otherUserId", otherUserId)
         startActivity(intent)
-    }
-
-    private fun showRecommendDialog() {
-        // For now, we'll show a simple dialog
-        // In a real implementation, you might want to show a list of manga to recommend
-        Toast.makeText(this, "Recommend feature coming soon!", Toast.LENGTH_SHORT).show()
-        
-        // TODO: Implement manga selection dialog
-        // For now, we'll just open the recommendation activity with a dummy manga
-        // val intent = Intent(this, UserRecommendationActivity::class.java)
-        // intent.putExtra("toUserId", otherUserId)
-        // intent.putExtra("titleId", "dummy_manga_id")
-        // startActivity(intent)
     }
 
     private fun loadUserStats() {

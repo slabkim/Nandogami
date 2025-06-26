@@ -62,9 +62,17 @@
             android:theme="@style/Theme.Nandogami" />
 
         <activity
+            android:name=".ui.chat.ChatListActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Nandogami" />
+
+        <activity
             android:name=".ui.recommendation.UserRecommendationActivity"
             android:exported="false"
             android:theme="@style/Theme.Nandogami" />
+
+        <activity android:name=".ui.profile.UserListActivity" />
+        <activity android:name=".ui.profile.ReadingListActivity" />
 
         <!-- (Tambahkan activity lain jika ada) -->
 

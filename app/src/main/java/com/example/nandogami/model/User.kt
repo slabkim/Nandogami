@@ -1,6 +1,7 @@
 package com.example.nandogami.model
 
 data class User(
+    val id: String = "",
     val username: String = "",
     val handle: String = "",
     val bio: String = "",

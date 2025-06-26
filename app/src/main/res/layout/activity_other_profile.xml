@@ -183,16 +183,6 @@
 
             </LinearLayout>
 
-            <!-- Recommend Button -->
-            <Button
-                android:id="@+id/btnRecommend"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:text="Recommend Manga"
-                android:textSize="16sp"
-                android:backgroundTint="@color/green"
-                style="@style/Widget.Material3.Button" />
-
         </LinearLayout>
 
     </ScrollView>

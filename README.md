@@ -1,80 +1,91 @@
-# Nandogami 📱✨  
-Aplikasi Rekomendasi Komik & Manga Paling Keren untuk Android
+# Nandogami 📱✨
+Aplikasi Rekomendasi Komik & Manga Modern untuk Android
 
 ---
 
 ## 📲 Download Aplikasi
 
-Tidak sabar mencoba Nandogami? Download versi terbarunya langsung di sini!
-
+Coba Nandogami versi terbaru:
 [**Download Nandogami v1.0.0 (.apk)**](https://github.com/slabkim/Nandogami/releases/download/v1.0.0/Nandogami.apk)
 
 ---
 
-## 🚀 Apa itu Nandogami?
+## 🚀 Tentang Nandogami
 
-**Nandogami** adalah aplikasi Android modern yang dirancang khusus untuk para pecinta manga dan komik. Dengan Nandogami, kamu bisa menemukan, mencari, dan mendapatkan rekomendasi komik terbaik dari berbagai genre, lengkap dengan fitur animasi, tampilan dark mode yang elegan, dan pengalaman pengguna yang interaktif. Temukan komik favoritmu, baca detailnya, dan dapatkan rekomendasi terbaru setiap saat!
+**Nandogami** adalah aplikasi Android untuk para pecinta manga, manhwa, dan komik. Temukan, cari, dan dapatkan rekomendasi komik terbaik, terhubung dengan komunitas, dan kelola koleksi bacaanmu dengan mudah.
 
 ---
 
 ## 🎥 Demo & Screenshots
-
 <div align="center">
-  <img src="public/screenshots/home.jpeg" width="200" alt="Home Screen">
-  <img src="public/screenshots/detail.jpeg" width="200" alt="Detail Screen">
-  <img src="public/screenshots/profile.jpeg" width="200" alt="Profile Screen">
-  <img src="public/screenshots/auth.jpeg" width="200" alt="Authentication Screen">
-  <img src="public/screenshots/edit.jpeg" width="200" alt="Edit Profile Screen">
+  <img src="public/screenshots/login.jpeg" width="200" alt="Login Screen">
+  <img src="public/screenshots/searchcomic.jpeg" width="200" alt="Search Comic">
+  <img src="public/screenshots/searchuser.jpeg" width="200" alt="Search User">
+  <img src="public/screenshots/detailcomic.jpeg" width="200" alt="Detail Comic">
+  <img src="public/screenshots/commentcomic.jpeg" width="200" alt="Comment Comic">
+  <img src="public/screenshots/otherprofile.jpeg" width="200" alt="Other Profile">
+  <img src="public/screenshots/editprofile.jpeg" width="200" alt="Edit Profile">
+  <img src="public/screenshots/listmessage.jpeg" width="200" alt="List Message">
 </div>
 
 ---
 
-## ✨ Fitur Unggulan
+## ✨ Fitur Terbaru & Unggulan
 
-### 🔥 Rekomendasi Komik Otomatis
-- Dapatkan rekomendasi komik/manga populer setiap minggu.
-- Fitur "Popular This Week", "Featured Titles", dan "New Releases".
+### 🔍 Pencarian Komik & User
+- Cari komik berdasarkan judul, penulis, atau genre.
+- **Cari user lain berdasarkan username** (unik, seperti Facebook).
+- Hasil pencarian dibagi dua section: Komik & User.
+- Klik user di hasil pencarian untuk melihat profil mereka.
+- <b>Lihat pada screenshot: Search Comic, Search User</b>
 
-### 🔍 Pencarian Super Canggih
-- **Case-insensitive**: Cari judul tanpa peduli huruf besar/kecil.
-- Pencarian di banyak field: judul, penulis, kategori.
-- Riwayat pencarian & pencarian populer.
-- Hasil pencarian langsung muncul dengan animasi transisi.
+### 🕵️‍♂️ Recent & Popular Search
+- Riwayat pencarian (recent search) hanya update saat user benar-benar melakukan search.
+- Popular search dengan chip interaktif.
 
-### 📚 Detail Komik Interaktif
-- Info lengkap: judul, penulis, rating, sinopsis, genre, adaptasi.
-- **Tab animasi**: About, Where to Read, Comments — dengan transisi halus.
-- Komentar pengguna (mock) dengan tampilan modern.
+### 👥 Sistem Sosial: Followers & Following
+- Lihat dan klik jumlah followers/following di profil user lain.
+- **Daftar followers/following** tampil di halaman khusus (UserListActivity).
+- Klik user di daftar untuk melihat profil mereka.
+- <b>Lihat pada screenshot: Other Profile</b>
 
-### 🎨 UI/UX Modern & Animasi
-- **Dark mode** elegan, aksen ungu, dan layout responsif.
-- Animasi transisi antar tab & halaman.
-- Material Design 3, smooth navigation, dan efek ripple di setiap klik.
-- Komponen interaktif dengan feedback visual.
+### 💬 Komentar Komik & Pesan
+- Komentar pada halaman detail komik.
+- Fitur chat/message antar user.
+- <b>Lihat pada screenshot: Comment Comic, List Message</b>
 
-### 👤 Profil & Autentikasi
+### 📚 Status Bacaan (Reading List)
+- Lihat daftar komik yang sedang dibaca user lain (status "reading").
+- Daftar komik tampil di halaman khusus (ReadingListActivity).
+- Status bacaan lain: dropped, on hold, completed, dsb (bisa dikembangkan).
+
+### 👤 Profil Modern & Edit Profile
+- Profil user dengan avatar, bio, followers, following, reading count.
+- Edit profil dengan UI modern dan preview avatar.
+- **Logo aplikasi (logogede.png) tampil di halaman login & register** dalam lingkaran ungu.
+- <b>Lihat pada screenshot: Edit Profile, Login, Other Profile</b>
+
+### 🔒 Autentikasi Aman
 - Login/register dengan Firebase Auth.
-- Edit profil, avatar, dan logout.
-- Data pengguna aman di cloud.
+- Data user aman di cloud.
 
-### 🌐 Platform Baca Resmi
-- Tab "Where to Read" menampilkan link ke Manga Plus, VIZ Media, Crunchyroll.
-- Kotak platform dengan desain modern, warna kontras, dan animasi klik.
+### 🎨 UI/UX Modern
+- Dark mode, aksen ungu, layout responsif.
+- Material Design 3, animasi transisi, efek ripple.
+- Logo aplikasi custom di login/register.
 
 ---
 
 ## 🏆 Keunggulan Nandogami
-
-- **Cepat & Ringan**: Optimasi performa untuk device low-end sekalipun.
-- **Realtime**: Data komik langsung dari Firebase Firestore.
-- **Aman**: Autentikasi dan data user terenkripsi.
-- **User Experience**: Navigasi mudah, transisi animasi, dan feedback visual di setiap aksi.
-- **Open Source**: Siap dikembangkan lebih lanjut oleh komunitas.
+- **Cepat & Ringan**: Optimasi untuk device low-end.
+- **Realtime**: Data komik & user langsung dari Firebase Firestore.
+- **Aman**: Autentikasi & data user terenkripsi.
+- **Komunitas**: Fitur sosial, followers, dan pencarian user.
+- **Open Source**: Siap dikembangkan komunitas.
 
 ---
 
-## 🛠️ Teknologi yang Digunakan
-
+## 🛠️ Teknologi
 - **Kotlin** (100% Android Native)
 - **MVVM Architecture**
 - **Firebase Firestore & Auth**
@@ -103,7 +114,6 @@ Tidak sabar mencoba Nandogami? Download versi terbarunya langsung di sini!
 ---
 
 ## 👥 Tim Pengembang
-
 | Nama Lengkap                  | GitHub ID                |
 |-------------------------------|--------------------------|
 | Ananda Anhar Subing           | [@anndaanhr](https://github.com/anndaanhr) |
@@ -118,26 +128,23 @@ Tidak sabar mencoba Nandogami? Download versi terbarunya langsung di sini!
 ---
 
 ## 🔗 Link Penting
-
 - **Repository:** https://github.com/slabkim/Nandogami
 - **Firebase Console:** https://console.firebase.google.com/
 
 ---
 
 ## 📄 Lisensi
-
-MIT License. Lihat file [LICENSE](LICENSE) untuk detail.
+MIT License. Lihat file LICENSE untuk detail.
 
 ---
 
 ## 🙏 Terima Kasih
-
 - Material Design 3, Firebase, Glide, Android Jetpack
 - Semua kontributor & pengguna Nandogami
 
 ---
-
 <div align="center">
+  <img src="app/src/main/res/drawable/logogede.png" width="80" alt="Nandogami Logo"/><br>
   <b>Made with ❤️ by Nandogami Team</b><br>
   <i>"Temukan komik favoritmu, kapan saja, di mana saja."</i>
 </div>

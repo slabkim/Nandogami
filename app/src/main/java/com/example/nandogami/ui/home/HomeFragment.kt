@@ -57,6 +57,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             bottomNav?.selectedItemId = R.id.notificationsFragment
         }
 
+        // Klik ke halaman daftar chat (DM)
+        binding.ivDmHome.setOnClickListener {
+            val intent = Intent(requireContext(), com.example.nandogami.ui.chat.ChatListActivity::class.java)
+            startActivity(intent)
+        }
+
         // Setup LayoutManagers untuk semua RecyclerView
         setupRecyclerViewLayoutManagers()
 

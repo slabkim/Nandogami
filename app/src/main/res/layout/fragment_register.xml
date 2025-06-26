@@ -13,11 +13,14 @@
         android:gravity="center_horizontal">
 
         <!-- Logo Avatar -->
-        <View
+        <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:src="@drawable/logogede"
+            android:layout_marginTop="32dp"
+            android:scaleType="centerCrop"
             android:background="@drawable/circle_purple_avatar"
-            android:layout_marginTop="32dp"/>
+            android:clipToOutline="true"/>
 
         <!-- App Name -->
         <TextView

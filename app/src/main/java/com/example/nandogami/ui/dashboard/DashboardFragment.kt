@@ -17,9 +17,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.nandogami.adapter.RecentSearchAdapter
 import com.example.nandogami.adapter.TitleAdapter
+import com.example.nandogami.adapter.UserSearchAdapter
 import com.example.nandogami.databinding.FragmentDashboardBinding
 import com.example.nandogami.model.Title
+import com.example.nandogami.model.User
 import com.example.nandogami.ui.detail.DetailActivity
+import com.example.nandogami.ui.profile.OtherProfileActivity
 import com.google.android.material.chip.Chip
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -39,6 +42,7 @@ class DashboardFragment : Fragment() {
     private lateinit var dashboardViewModel: DashboardViewModel
     private lateinit var searchResultsAdapter: TitleAdapter
     private lateinit var recentSearchesAdapter: RecentSearchAdapter
+    private lateinit var userSearchAdapter: UserSearchAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,6 +99,7 @@ class DashboardFragment : Fragment() {
 
         setupSearchResults()
         setupRecentSearches()
+        setupUserResults()
         setupSearchBox()
         observeViewModel()
     }
@@ -111,16 +116,13 @@ class DashboardFragment : Fragment() {
     }
 
     private fun setupSearchBox() {
+        // Live search saat mengetik, tapi tidak menambah recent search
         binding.searchEditText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
-
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val query = s.toString().trim()
-
                 val isSearching = query.isNotEmpty()
-
                 // Sembunyikan popular/recent saat search aktif
                 binding.popularSearchesChipGroup.visibility = if (isSearching) View.GONE else View.VISIBLE
                 binding.recentSearchesRecyclerView.visibility = if (isSearching) View.GONE else View.VISIBLE
@@ -128,15 +130,28 @@ class DashboardFragment : Fragment() {
                 binding.tvRecentSearches.visibility = if (isSearching) View.GONE else View.VISIBLE
                 binding.tvPopularSearches.visibility = if (isSearching) View.GONE else View.VISIBLE
                 binding.filtersGroup.visibility = if (isSearching) View.GONE else View.VISIBLE
-
                 if (isSearching) {
-                    dashboardViewModel.search(query)
+                    dashboardViewModel.clearSearchResults() // clear dulu biar hasil baru muncul setelah submit
+                    dashboardViewModel.searchUsers(query)
                 } else {
                     dashboardViewModel.clearSearchResults()
+                    dashboardViewModel.searchUsers("")
                 }
             }
-
         })
+        // Tambahkan listener untuk aksi search di keyboard
+        binding.searchEditText.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val query = binding.searchEditText.text.toString().trim()
+                if (query.isNotEmpty()) {
+                    dashboardViewModel.search(query)
+                    dashboardViewModel.searchUsers(query)
+                }
+                true
+            } else {
+                false
+            }
+        }
     }
 
 
@@ -161,6 +176,18 @@ class DashboardFragment : Fragment() {
 
         binding.tvClearAll.setOnClickListener {
             dashboardViewModel.clearRecentSearches()
+        }
+    }
+
+    private fun setupUserResults() {
+        userSearchAdapter = UserSearchAdapter(emptyList()) { user ->
+            val intent = Intent(requireContext(), OtherProfileActivity::class.java)
+            intent.putExtra("userId", user.id) // gunakan id Firestore
+            startActivity(intent)
+        }
+        binding.userResultsRecyclerView.apply {
+            layoutManager = LinearLayoutManager(context)
+            adapter = userSearchAdapter
         }
     }
 
@@ -202,6 +229,12 @@ class DashboardFragment : Fragment() {
                 }
                 binding.popularSearchesChipGroup.addView(chip)
             }
+        }
+
+        dashboardViewModel.userSearchResults.observe(viewLifecycleOwner) { users ->
+            userSearchAdapter.updateData(users ?: emptyList())
+            binding.tvUserResults.visibility = if (!users.isNullOrEmpty()) View.VISIBLE else View.GONE
+            binding.userResultsRecyclerView.visibility = if (!users.isNullOrEmpty()) View.VISIBLE else View.GONE
         }
     }
 
