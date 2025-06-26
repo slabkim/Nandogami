@@ -21,11 +21,11 @@ Coba Nandogami versi terbaru:
   <img src="public/screenshots/login.jpeg" width="200" alt="Login Screen">
   <img src="public/screenshots/searchcomic.jpeg" width="200" alt="Search Comic">
   <img src="public/screenshots/searchuser.jpeg" width="200" alt="Search User">
-  <img src="public/screenshots/detailcomic.jpeg" width="200" alt="Detail Comic">
-  <img src="public/screenshots/commentcomic.jpeg" width="200" alt="Comment Comic">
   <img src="public/screenshots/otherprofile.jpeg" width="200" alt="Other Profile">
   <img src="public/screenshots/editprofile.jpeg" width="200" alt="Edit Profile">
   <img src="public/screenshots/listmessage.jpeg" width="200" alt="List Message">
+  <img src="public/screenshots/detailcomic.jpeg" width="200" alt="Detail Comic (Scrolling)">
+  <img src="public/screenshots/commentcomic.jpeg" width="200" alt="Comment Comic (Scrolling)">
 </div>
 
 ---
@@ -134,7 +134,7 @@ Coba Nandogami versi terbaru:
 ---
 
 ## 📄 Lisensi
-MIT License. Lihat file LICENSE untuk detail.
+MIT License. Lihat file [LICENSE](LICENSE) untuk detail.
 
 ---
 
@@ -145,6 +145,7 @@ MIT License. Lihat file LICENSE untuk detail.
 ---
 <div align="center">
   <img src="app/src/main/res/drawable/logogede.png" width="80" alt="Nandogami Logo"/><br>
-  <b>Made with ❤️ by Nandogami Team</b><br>
+  <b>Made with by Nandogami Team</b><br>
   <i>"Temukan komik favoritmu, kapan saja, di mana saja."</i>
 </div>
+
