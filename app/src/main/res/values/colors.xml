@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Purple colors for accent -->
+    <color name="purple_200">#BB86FC</color>
+    <color name="purple_500">#6200EE</color>
+    <color name="purple_700">#3700B3</color>
+    <color name="purple_accent">#9C4DFF</color>
+    <color name="purple_light">#E1BEE7</color>
+    
+    <!-- Black colors for backgrounds -->
+    <color name="black">#000000</color>
+    <color name="black_dark">#121212</color>
+    <color name="black_medium">#1E1E1E</color>
+    <color name="black_light">#2D2D2D</color>
+    <color name="black_surface">#1A1A1A</color>
+    
+    <!-- White colors for text -->
+    <color name="white">#FFFFFF</color>
+    <color name="white_primary">#FFFFFF</color>
+    <color name="white_secondary">#E0E0E0</color>
+    <color name="white_disabled">#B3B3B3</color>
+    
+    <!-- Gray colors for cards -->
+    <color name="gray_dark">#424242</color>
+    <color name="gray_medium">#616161</color>
+    <color name="gray_light">#757575</color>
+    <color name="gray">#9E9E9E</color>
+    
+    <!-- Status colors for reading -->
+    <color name="green">#4CAF50</color>
+    <color name="blue">#2196F3</color>
+    <color name="red">#F44336</color>
+    <color name="orange">#FF9800</color>
+    <color name="purple">#9C27B0</color>
+    
+    <!-- Legacy colors (keeping for compatibility) -->
+    <color name="teal_200">#03DAC5</color>
+    <color name="teal_700">#018786</color>
+    <color name="background">#000000</color>
+    <color name="surface">#1A1A1A</color>
+    <color name="onBackground">#FFFFFF</color>
+    <color name="light_gray">#2D2D2D</color>
+
+    <color name="chip_bg">#232436</color>
+    <color name="chip_selector_base">#1F2937</color>
+    <color name="chip_selected">#9C4DFF</color>
+
+</resources>

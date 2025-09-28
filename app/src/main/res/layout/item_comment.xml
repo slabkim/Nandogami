@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="@color/black">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/ivUserAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_launcher_foreground"
+        android:background="@drawable/circle_purple_avatar"
+        android:padding="4dp"
+        tools:src="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginStart="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                tools:text="MangaFan123" />
+
+            <TextView
+                android:id="@+id/tvCommentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="2h ago"
+                android:textSize="12sp"
+                android:textColor="@color/white_secondary"
+                tools:text="2h ago" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvReplyLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reply"
+            android:textSize="12sp"
+            android:textColor="@color/purple_accent"
+            android:visibility="gone"
+            android:layout_marginTop="2dp"/>
+
+        <TextView
+            android:id="@+id/tvCommentText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="This is an amazing manga! The story is so engaging and the characters are well-developed. I can't wait for the next chapter!"
+            android:textSize="14sp"
+            android:textColor="@color/white_secondary"
+            android:lineSpacingExtra="2dp"
+            tools:text="This is an amazing manga! The story is so engaging and the characters are well-developed." />
+
+        <ImageView
+            android:id="@+id/ivCommentGif"
+            android:layout_width="160dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="fitCenter"
+            android:visibility="gone"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/tvLikeCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="👍 24"
+                android:textSize="12sp"
+                android:textColor="@color/white_secondary"
+                android:drawablePadding="4dp"
+                tools:text="👍 24" />
+
+            <TextView
+                android:id="@+id/tvReplyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Reply"
+                android:textSize="12sp"
+                android:textColor="@color/purple_accent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:padding="4dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout> 
